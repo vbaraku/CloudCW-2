@@ -90,8 +90,8 @@ function Form() {
           userId: userId,
         },
         auth: {
-          username: username,
-          password: password,
+          username: "user",
+          password: "user",
           userId: userId,
         },
       })
@@ -324,7 +324,7 @@ function Form() {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <form id="login" onSubmit={(e) => e.preventDefault()}>
+            <form id="login" onSubmit={(e) => {e.preventDefault();fetchAllData();}}>
               <h6>
                 Type in the credentials that will be used to send the request
               </h6>
