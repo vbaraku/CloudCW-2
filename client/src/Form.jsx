@@ -241,6 +241,10 @@ function Form() {
     setForm(component);
   }, [currentTab]);
 
+  function toDate(num){
+    let date = new Date(num);
+    return date.toLocaleDateString("en-gb", dateOptions);
+  }
   return (
     <>
       <div className="grid-container">
@@ -409,7 +413,7 @@ function Form() {
                     {row.recordId}
                   </TableCell>
                   <TableCell align="left">{row.name}</TableCell>
-                  <TableCell align="left">{row.date}</TableCell>
+                  <TableCell align="left">{toDate(row.date)}</TableCell>
                   <TableCell align="left">{row.glucoseBlood} mg/dL</TableCell>
                   <TableCell align="left">{row.intakeCarbs} grams</TableCell>
                   <TableCell align="left">{row.medicationDose} grams</TableCell>
