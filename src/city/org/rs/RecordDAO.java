@@ -24,14 +24,15 @@ public class RecordDAO {
 	// Private constructor
 	private RecordDAO() {
 		try {
+			System.out.println("Inside of DB connection");
 			URI dbUri = new URI(jdbcURI);
 			String username = dbUri.getUserInfo().split(":")[0];
 			String password = dbUri.getUserInfo().split(":")[1];
 
 			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
 					+ "?sslmode=require";
-
 			connection = DriverManager.getConnection(dbUrl, username, password);
+			System.out.println(connection.isValid(4));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("error trying to establish connection");
@@ -56,6 +57,7 @@ public class RecordDAO {
 
 	public ArrayList<Record> getAllInfo(String id, long date1, long date2) throws SQLException {
 		String query = "SELECT * FROM record WHERE date between ? and ?";
+		System.out.println("good");
 		if (id != null && id.length()>0)
 			query += " AND \"userName\" = ?";
 		query += ';';
