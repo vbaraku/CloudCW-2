@@ -79,7 +79,7 @@ function Form() {
     },
   };
 
-  const baseUrl = "/MyWebsite/rest/records";
+  const baseUrl = "/rest/records";
 
   const [allData, setAllData] = useState([]);
 
@@ -90,8 +90,8 @@ function Form() {
           userId: userId,
         },
         auth: {
-          username: "user",
-          password: "user",
+          username: username,
+          password: password,
           userId: userId,
         },
       })
@@ -216,6 +216,7 @@ function Form() {
           form="login"
           onClick={() => {
             deleteData(recordId);
+            fetchAllData();
           }}
           className="btn"
           style={{ background: "#90ee90" }}

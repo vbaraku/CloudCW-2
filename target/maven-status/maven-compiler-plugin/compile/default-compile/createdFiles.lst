@@ -3,6 +3,7 @@ city\org\rs\SecurityFilter$Authorizer.class
 city\org\rs\RecordAverageDTO.class
 city\org\rs\RecordDAO.class
 city\org\rs\App.class
+city\org\rs\CorsFilter.class
 city\org\rs\SecurityFilter.class
 city\org\rs\Record.class
 city\org\rs\RecordResource.class
