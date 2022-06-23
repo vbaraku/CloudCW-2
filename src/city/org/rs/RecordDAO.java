@@ -1,5 +1,7 @@
 package city.org.rs;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
@@ -16,7 +18,7 @@ import java.util.List;
 public class RecordDAO {
 	private static RecordDAO instance; // object to hold single class instance
 	private Connection connection;
-	private String jdbcURI = "postgres://kiurubvqaenzln:444b32cae426ce7b6bd7e278a7d1ba01f058ddafc8c4314e4631b5eafc14113d@ec2-99-80-170-190.eu-west-1.compute.amazonaws.com:5432/d5s0ljm3blqi63";
+	private String jdbcURI = "postgres://iauiatldkscmpp:ad05b6b67134e5cf030d07bc9c9723794a5b905d152e1fcabed868e38d214190@ec2-52-208-164-5.eu-west-1.compute.amazonaws.com:5432/db9ns6kjiac4mm";
 
 	// Singleton class "design pattern": defines private constructor that can only
 	// be called from within the class itself
@@ -24,10 +26,18 @@ public class RecordDAO {
 	// Private constructor
 	private RecordDAO() {
 		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e1) {
+			System.out.println("class not found");
+			e1.printStackTrace();
+		}
+		try{
 			System.out.println("Inside of DB connection");
 			URI dbUri = new URI(jdbcURI);
 			String username = dbUri.getUserInfo().split(":")[0];
 			String password = dbUri.getUserInfo().split(":")[1];
+			System.out.println(username);
+			System.out.println(password);
 
 			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
 					+ "?sslmode=require";
@@ -36,7 +46,9 @@ public class RecordDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("error trying to establish connection");
-			e.printStackTrace();
+			StringWriter writer = new StringWriter();
+			e.printStackTrace( new PrintWriter(writer,true ));
+			System. out.println("exeption stack is :\n"+writer.toString());
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -154,7 +166,7 @@ public class RecordDAO {
 		return id;
 	}
 
-	
+
 	public boolean update(Record record) {
 		try {
 			PreparedStatement ps = connection.prepareStatement(
@@ -192,7 +204,7 @@ public class RecordDAO {
 
 		return record;
 	}
-	
+
 	public boolean delete(Long id) {
 		try {
 			PreparedStatement ps = connection.prepareStatement(
